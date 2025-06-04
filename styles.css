@@ -94,3 +94,25 @@ th {
   margin-top: 1rem;
   font-weight: bold;
 }
+
+.place {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.place img {
+  display: block;
+  margin: 0 auto 10px; /* Центрируем изображение */
+}
+
+.place h3 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.place p {
+  font-size: 1em;
+  color: #555;
+}

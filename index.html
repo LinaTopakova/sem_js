@@ -1,28 +1,34 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Помощник для путешествий</title>
-<link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Помощник для путешествий</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <div id="app">
     <div id="welcome" class="container">
-        <div id="panel">
-            <h2>Добро пожаловать!</h2>
-            <p>Пожалуйста, введите ваше имя:</p>
-            <input type="text" id="username" placeholder="Ваше имя" />
-            <button id="nextBtn" disabled>Далее</button>
-        </div>
-      
+      <div id="panel">
+        <h2>Добро пожаловать!</h2>
+        <p>Пожалуйста, введите ваше имя:</p>
+        <input type="text" id="username" placeholder="Ваше имя" />
+        <button id="nextBtn" disabled>Далее</button>
+      </div>
     </div>
 
     <div id="mainPage" style="display:none;">
       <header id="header"></header>
+      <div>
+        <input type="text" id="cityInput" placeholder="Введите город для поиска достопримечательностей" />
+        <button id="searchBtn" disabled>Поиск</button>
+      </div>
+      <div id="results"></div>
+      <div id="map" style="width: 100%; height: 400px; margin-top: 20px;"></div>
     </div>
   </div>
 
+  <script src="https://api-maps.yandex.ru/2.1/?apikey=3f52aef1-4112-4aa0-a5fa-c3e369fcaed9&lang=ru_RU" type="text/javascript"></script>
   <script type="module" src="main.js"></script>
 </body>
 </html>
