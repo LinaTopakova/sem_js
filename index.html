@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Помощник для путешествий</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Приветственная страница -->
+    <div id="welcome" class="container">
+        <div id="panel">
+            <h2>Добро пожаловать!</h2>
+            <p>Пожалуйста, введите ваше имя:</p>
+            <input type="text" id="username" placeholder="Ваше имя" />
+            <button id="nextBtn" disabled>Далее</button>
+        </div>
+      
+    </div>
+
+    <!-- Главная страница (скрыта пока) -->
+    <div id="mainPage" style="display:none;">
+      <header id="header"></header>
+      <div class="container">
+        <div class="filter-section">
+          <label>Фильтр по userId:</label>
+          <div class="checkbox-group" id="userIdFilters"></div>
+          <button id="resetFilters">Сбросить фильтры</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th data-sort="id">ID ▲▼</th>
+              <th data-sort="title">Заголовок ▲▼</th>
+              <th>Текст</th>
+            </tr>
+          </thead>
+          <tbody id="postsTableBody"></tbody>
+        </table>
+        <div class="stats" id="stats"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
