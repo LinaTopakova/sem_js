@@ -25,9 +25,13 @@ function initMap(center) {
 
 function addPlacemarks(items) {
   items.forEach(item => {
+    const photoHtml = item.photos.length > 0
+      ? `<img src="${item.photos[0]}" alt="${item.name}" style="max-width:300px; display:block; margin-bottom:10px;">`
+      : '';
+
     const placemark = new ymaps.Placemark(item.coords, {
       balloonContentHeader: item.name,
-      balloonContentBody: item.description,
+      balloonContentBody: photoHtml + `<p>${item.description}</p>`,
       balloonContentFooter: `<a href="${item.url}" target="_blank" rel="noopener">Подробнее</a>`
     });
     myMap.geoObjects.add(placemark);
@@ -81,7 +85,6 @@ async function searchAttractions(city) {
 
 function initMainPage(username) {
   showMainPage(username);
-
   const searchBtn = document.getElementById('searchBtn');
   const cityInput = document.getElementById('cityInput');
 
@@ -116,3 +119,7 @@ function startApp() {
 }
 
 ymaps.ready(startApp);
+
+export function enableNextButtonOnInput() {
+  const input = document.getElementById('username');
+  const btn = document.get
