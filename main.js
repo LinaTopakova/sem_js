@@ -85,6 +85,7 @@ async function searchAttractions(city) {
 
 function initMainPage(username) {
   showMainPage(username);
+
   const searchBtn = document.getElementById('searchBtn');
   const cityInput = document.getElementById('cityInput');
 
@@ -119,7 +120,3 @@ function startApp() {
 }
 
 ymaps.ready(startApp);
-
-export function enableNextButtonOnInput() {
-  const input = document.getElementById('username');
-  const btn = document.get
