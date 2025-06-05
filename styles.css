@@ -116,3 +116,42 @@ th {
   font-size: 1em;
   color: #555;
 }
+
+/* styles.css */
+.menu-button {
+  padding: 8px 16px;
+  margin: 0 5px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.menu-button.active {
+  background-color: #94caeeb9;
+  color: white;
+  border-color: #94caeeb9;
+}
+
+.place {
+  margin: 15px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+#results {
+  margin-top: 20px;
+}
+
+input[type="text"] {
+  padding: 8px;
+  width: 300px;
+  margin-right: 10px;
+}
+
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

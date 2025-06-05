@@ -18,9 +18,15 @@
     </div>
 
     <div id="mainPage" style="display:none;">
-      <header id="header"></header>
+      <header id="header">
+      </header>
+      <div id="menu">
+            <button id="attractionsBtn" class="menu-button active">Достопримечательности</button>
+            <button id="hotelsBtn" class="menu-button">Отели</button>
+            <button id="cafesBtn" class="menu-button">Кафе</button>
+          </div>
       <div>
-        <input type="text" id="cityInput" placeholder="Введите город для поиска достопримечательностей" />
+        <input type="text" id="cityInput" placeholder="Введите город для поиска" />
         <button id="searchBtn" disabled>Поиск</button>
       </div>
       <div id="results"></div>

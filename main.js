@@ -1,13 +1,17 @@
+// main.js
 import { geocodeCity } from './dataService.js';
 import {
   showMainPage,
   enableNextButtonOnInput,
   enableSearchButtonOnInput,
-  renderResults
+  renderResults,
+  setActiveButton
 } from './uiService.js';
 
 let myMap;
 let placemarks = [];
+let currentSearchType = 'attractions'; // 'attractions', 'hotels', 'cafes'
+let currentCity = '';
 
 function initMap(center) {
   if (!myMap) {
@@ -39,7 +43,7 @@ function addPlacemarks(items) {
   });
 }
 
-async function searchAttractions(city) {
+async function searchPlaces(city, type) {
   const cityCoords = await geocodeCity(city);
   const searchControl = new ymaps.control.SearchControl({
     options: {
@@ -53,6 +57,21 @@ async function searchAttractions(city) {
       noPlacemark: true
     }
   });
+
+  let searchQuery;
+  switch(type) {
+    case 'attractions':
+      searchQuery = `достопримечательности ${city}`;
+      break;
+    case 'hotels':
+      searchQuery = `отели ${city}`;
+      break;
+    case 'cafes':
+      searchQuery = `кафе ${city}`;
+      break;
+    default:
+      searchQuery = `достопримечательности ${city}`;
+  }
 
   return new Promise((resolve, reject) => {
     searchControl.events.once('load', () => {
@@ -79,23 +98,30 @@ async function searchAttractions(city) {
       resolve(items);
     });
 
-    searchControl.search(`достопримечательности ${city}`);
+    searchControl.search(searchQuery);
   });
 }
 
 function initMainPage(username) {
   showMainPage(username);
+   enableSearchButtonOnInput();
 
   const searchBtn = document.getElementById('searchBtn');
   const cityInput = document.getElementById('cityInput');
+  const attractionsBtn = document.getElementById('attractionsBtn');
+  const hotelsBtn = document.getElementById('hotelsBtn');
+  const cafesBtn = document.getElementById('cafesBtn');
 
+  // Обработчик поиска
   searchBtn.addEventListener('click', async () => {
     const city = cityInput.value.trim();
     if (!city) return;
 
+    currentCity = city;
+    
     try {
-      const items = await searchAttractions(city);
-      renderResults(items);
+      const items = await searchPlaces(city, currentSearchType);
+      renderResults(items, currentSearchType);
 
       if (items.length > 0) {
         initMap(items[0].coords);
@@ -103,6 +129,67 @@ function initMainPage(username) {
       }
     } catch (e) {
       alert('Ошибка при поиске: ' + e.message);
+    }
+  });
+
+  // Обработчики кнопок меню
+  attractionsBtn.addEventListener('click', async () => {
+    if (currentSearchType === 'attractions') return;
+    currentSearchType = 'attractions';
+    setActiveButton('attractions');
+    
+    if (currentCity) {
+      try {
+        const items = await searchPlaces(currentCity, currentSearchType);
+        renderResults(items, currentSearchType);
+        
+        if (items.length > 0) {
+          initMap(items[0].coords);
+          addPlacemarks(items);
+        }
+      } catch (e) {
+        alert('Ошибка при поиске: ' + e.message);
+      }
+    }
+  });
+
+  hotelsBtn.addEventListener('click', async () => {
+    if (currentSearchType === 'hotels') return;
+    currentSearchType = 'hotels';
+    setActiveButton('hotels');
+    
+    if (currentCity) {
+      try {
+        const items = await searchPlaces(currentCity, currentSearchType);
+        renderResults(items, currentSearchType);
+        
+        if (items.length > 0) {
+          initMap(items[0].coords);
+          addPlacemarks(items);
+        }
+      } catch (e) {
+        alert('Ошибка при поиске: ' + e.message);
+      }
+    }
+  });
+
+  cafesBtn.addEventListener('click', async () => {
+    if (currentSearchType === 'cafes') return;
+    currentSearchType = 'cafes';
+    setActiveButton('cafes');
+    
+    if (currentCity) {
+      try {
+        const items = await searchPlaces(currentCity, currentSearchType);
+        renderResults(items, currentSearchType);
+        
+        if (items.length > 0) {
+          initMap(items[0].coords);
+          addPlacemarks(items);
+        }
+      } catch (e) {
+        alert('Ошибка при поиске: ' + e.message);
+      }
     }
   });
 }
