@@ -1,4 +1,3 @@
-// main.js
 import { geocodeCity } from './dataService.js';
 import {
   showMainPage,
@@ -12,6 +11,20 @@ let myMap;
 let placemarks = [];
 let currentSearchType = 'attractions'; // 'attractions', 'hotels', 'cafes'
 let currentCity = '';
+let currentItems = [];
+
+function sortItems(items, order = 'default') {
+  if (order === 'default') {
+    return items; // без сортировки, исходный порядок
+  }
+  return items.slice().sort((a, b) => {
+    const nameA = a.name.toLowerCase();
+    const nameB = b.name.toLowerCase();
+    if (nameA < nameB) return order === 'asc' ? -1 : 1;
+    if (nameA > nameB) return order === 'asc' ? 1 : -1;
+    return 0;
+  });
+}
 
 function initMap(center) {
   if (!myMap) {
@@ -102,95 +115,70 @@ async function searchPlaces(city, type) {
   });
 }
 
+function updateResults(items) {
+  currentItems = items;
+  const order = document.getElementById('sortOrder').value || 'default';
+  const sorted = sortItems(currentItems, order);
+  renderResults(sorted, currentSearchType);
+
+  if (items.length > 0) {
+    initMap(items[0].coords);
+    addPlacemarks(items);
+  }
+}
+
 function initMainPage(username) {
   showMainPage(username);
-   enableSearchButtonOnInput();
+  enableSearchButtonOnInput();
 
   const searchBtn = document.getElementById('searchBtn');
   const cityInput = document.getElementById('cityInput');
   const attractionsBtn = document.getElementById('attractionsBtn');
   const hotelsBtn = document.getElementById('hotelsBtn');
   const cafesBtn = document.getElementById('cafesBtn');
+  const sortOrderSelect = document.getElementById('sortOrder');
 
-  // Обработчик поиска
+  // Поиск
   searchBtn.addEventListener('click', async () => {
     const city = cityInput.value.trim();
     if (!city) return;
 
     currentCity = city;
-    
+
     try {
       const items = await searchPlaces(city, currentSearchType);
-      renderResults(items, currentSearchType);
-
-      if (items.length > 0) {
-        initMap(items[0].coords);
-        addPlacemarks(items);
-      }
+      updateResults(items);
     } catch (e) {
       alert('Ошибка при поиске: ' + e.message);
     }
   });
 
-  // Обработчики кнопок меню
-  attractionsBtn.addEventListener('click', async () => {
-    if (currentSearchType === 'attractions') return;
-    currentSearchType = 'attractions';
-    setActiveButton('attractions');
-    
-    if (currentCity) {
-      try {
-        const items = await searchPlaces(currentCity, currentSearchType);
-        renderResults(items, currentSearchType);
-        
-        if (items.length > 0) {
-          initMap(items[0].coords);
-          addPlacemarks(items);
-        }
-      } catch (e) {
-        alert('Ошибка при поиске: ' + e.message);
-      }
-    }
-  });
+  // Кнопки меню
+  async function onMenuClick(type) {
+    if (currentSearchType === type) return;
+    currentSearchType = type;
+    setActiveButton(type);
 
-  hotelsBtn.addEventListener('click', async () => {
-    if (currentSearchType === 'hotels') return;
-    currentSearchType = 'hotels';
-    setActiveButton('hotels');
-    
     if (currentCity) {
       try {
         const items = await searchPlaces(currentCity, currentSearchType);
-        renderResults(items, currentSearchType);
-        
-        if (items.length > 0) {
-          initMap(items[0].coords);
-          addPlacemarks(items);
-        }
+        updateResults(items);
       } catch (e) {
         alert('Ошибка при поиске: ' + e.message);
       }
     }
-  });
+  }
 
-  cafesBtn.addEventListener('click', async () => {
-    if (currentSearchType === 'cafes') return;
-    currentSearchType = 'cafes';
-    setActiveButton('cafes');
-    
-    if (currentCity) {
-      try {
-        const items = await searchPlaces(currentCity, currentSearchType);
-        renderResults(items, currentSearchType);
-        
-        if (items.length > 0) {
-          initMap(items[0].coords);
-          addPlacemarks(items);
-        }
-      } catch (e) {
-        alert('Ошибка при поиске: ' + e.message);
-      }
-    }
+  attractionsBtn.addEventListener('click', () => onMenuClick('attractions'));
+  hotelsBtn.addEventListener('click', () => onMenuClick('hotels'));
+  cafesBtn.addEventListener('click', () => onMenuClick('cafes'));
+
+  // Сортировка
+  sortOrderSelect.addEventListener('change', () => {
+    if (!currentItems.length) return;
+    const order = sortOrderSelect.value;
+    const sorted = sortItems(currentItems, order);
+    renderResults(sorted, currentSearchType);
   });
 }
 

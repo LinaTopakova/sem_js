@@ -1,157 +1,272 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0; padding: 0;
-  background: #f0f0f0;
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background: #f5f5f5;
 }
 
-header {
-  background-color: #94caeeb9;
-  color: white;
-  padding: 1rem;
-  font-size: 1.2rem;
+/* Основной контейнер приложения */
+#app {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
+/* Стили для приветственного экрана */
 #welcome {
-    background-image: url('welcome.jpg'); /* Замените на путь к вашей картинке */
-    background-size: cover;        /* покрывает весь экран */
-    background-position: center;   /* центрируется */
-    background-repeat: no-repeat;  /* не повторяется */
-    height: 100vh;   
-    width: 120vw;              /* занимает 100% высоты окна браузера */
-    display: flex;                 /* чтобы красиво выровнять содержимое */
-    flex-direction: column;
-    justify-content: center;       /* вертикальное центрирование */
-    align-items: center;           /* горизонтальное центрирование */
-    color: white;                  /* цвет текста для контраста */
-    text-align: center;
-    padding: 20px;
-}
-
-#welcome input, #welcome button {
-    margin-top: 10px;
-    padding: 10px;
-    font-size: 1rem;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('welcome.jpg');
+  background-size: cover;
+  background-position: center;
+  padding: 20px;
 }
 
 #panel {
-    background-color: rgba(0, 0, 0, 0.6); /* полупрозрачный чёрный фон */
-    padding: 30px 40px;
-    border-radius: 10px;
-    color: white;
-    max-width: 400px;
-    width: 90%;
-    box-sizing: border-box;
-    text-align: center;
-  }
-
-.container {
-  padding: 1rem;
-  max-width: 900px;
-  margin: 0 auto;
-  background: white;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-input[type="text"] {
-  padding: 0.5rem;
-  font-size: 1rem;
-  width: 250px;
-}
-
-button {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  margin-left: 0.5rem;
-  cursor: pointer;
-}
-
-table {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 40px;
+  border-radius: 10px;
+  color: white;
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-th, td {
-  border: 1px solid #ddd;
-  padding: 0.5rem;
-  text-align: left;
+#panel h2 {
+  margin-top: 0;
+  font-size: 2rem;
 }
 
-th {
-  cursor: pointer;
-  background-color: #f9f9f9;
-}
-
-.filter-section {
-  margin-top: 1rem;
-}
-
-.checkbox-group {
-  margin-top: 0.5rem;
-}
-
-.stats {
-  margin-top: 1rem;
-  font-weight: bold;
-}
-
-.place {
-  border: 1px solid #ccc;
+#panel input {
+  width: 100%;
+  padding: 12px;
+  margin: 15px 0;
+  border: none;
   border-radius: 5px;
-  padding: 10px;
-  margin: 10px 0;
+  font-size: 1rem;
 }
 
-.place img {
-  display: block;
-  margin: 0 auto 10px; /* Центрируем изображение */
-}
-
-.place h3 {
-  margin: 0;
-  font-size: 1.5em;
-}
-
-.place p {
-  font-size: 1em;
-  color: #555;
-}
-
-/* styles.css */
-.menu-button {
-  padding: 8px 16px;
-  margin: 0 5px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+#panel button {
+  width: 100%;
+  padding: 12px;
+  background-color: #55a7ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
   cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#panel button:hover {
+  background-color: #3d8be6;
+}
+
+#panel button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Стили для главной страницы */
+#mainPage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Стили для шапки */
+header {
+  width: 100%;
+  background-color: #94caeeb9;
+  color: white;
+  padding: 1.5rem 0;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+#header-title {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+/* Стили для меню */
+#menu {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.menu-button {
+  padding: 10px 20px;
+  background-color: #55a7ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 1rem;
 }
 
 .menu-button.active {
-  background-color: #94caeeb9;
-  color: white;
-  border-color: #94caeeb9;
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.place {
-  margin: 15px 0;
-  padding: 10px;
+.menu-button:hover {
+  background-color: #3d8be6;
+}
+
+/* Стили для поиска */
+.search-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+  width: 100%;
+}
+
+#cityInput {
+  padding: 12px;
   border: 1px solid #ddd;
   border-radius: 5px;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 500px;
 }
 
+#searchBtn {
+  padding: 12px 25px;
+  background-color: #55a7ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 1rem;
+}
+
+#searchBtn:hover {
+  background-color: #3d8be6;
+}
+
+#searchBtn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Стили для карты */
+#map {
+  width: 100%;
+  height: 400px;
+  margin: 30px 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для результатов */
 #results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  width: 100%;
   margin-top: 20px;
 }
 
-input[type="text"] {
-  padding: 8px;
-  width: 300px;
-  margin-right: 10px;
+.place {
+  background: white;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
+.place:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
 
-button:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
+.place h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.place img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.place p {
+  color: #666;
+  line-height: 1.5;
+}
+
+.place a {
+  color: #55a7ff;
+  text-decoration: none;
+}
+
+.place a:hover {
+  text-decoration: underline;
+}
+
+/* Адаптивные стили */
+@media (max-width: 768px) {
+  #panel {
+    padding: 30px;
+  }
+  
+  .search-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #cityInput {
+    max-width: 100%;
+  }
+  
+  #searchBtn {
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  #results {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  #panel {
+    padding: 20px;
+  }
+  
+  #header-title {
+    font-size: 1.5rem;
+  }
+  
+  .menu-button {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
 }
