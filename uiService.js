@@ -1,4 +1,3 @@
-// uiService.js
 export function enableNextButtonOnInput() {
   const input = document.getElementById('username');
   const btn = document.getElementById('nextBtn');
@@ -20,12 +19,9 @@ export function enableSearchButtonOnInput() {
   input.addEventListener('input', () => {
     btn.disabled = input.value.trim().length === 0;
   });
-  
-  // Активируем кнопку, если в поле уже есть текст
-  btn.disabled = input.value.trim().length === 0;
 }
 
-export function setActiveButton(buttonType) {
+export function setActiveButton(buttonType) { //Активирована одна кнопка
   document.querySelectorAll('.menu-button').forEach(btn => {
     btn.classList.remove('active');
   });
@@ -73,7 +69,7 @@ export function renderResults(items, type) {
     const description = item.description || '';
     const photo = item.photos && item.photos.length > 0 ? item.photos[0] : null;
 
-    let imageHTML = '';
+    let imageHTML = ''; //Формируем HTML для изображение
     if (photo) {
       imageHTML = `<img src="${photo}" alt="${name}" style="max-width:200px; max-height:150px;" />`;
     } else {

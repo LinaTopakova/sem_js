@@ -9,13 +9,13 @@ import {
 
 let myMap;
 let placemarks = [];
-let currentSearchType = 'attractions'; // 'attractions', 'hotels', 'cafes'
+let currentSearchType = 'attractions'; 
 let currentCity = '';
 let currentItems = [];
 
 function sortItems(items, order = 'default') {
   if (order === 'default') {
-    return items; // без сортировки, исходный порядок
+    return items; 
   }
   return items.slice().sort((a, b) => {
     const nameA = a.name.toLowerCase();
@@ -115,11 +115,11 @@ async function searchPlaces(city, type) {
   });
 }
 
-function updateResults(items) {
+function updateResults(items) { //Обновляет отображение результатов
   currentItems = items;
   const order = document.getElementById('sortOrder').value || 'default';
   const sorted = sortItems(currentItems, order);
-  renderResults(sorted, currentSearchType);
+  renderResults(sorted, currentSearchType); //отображение отсортированных результатов
 
   if (items.length > 0) {
     initMap(items[0].coords);
@@ -127,7 +127,7 @@ function updateResults(items) {
   }
 }
 
-function initMainPage(username) {
+function initMainPage(username) { //главная страница
   showMainPage(username);
   enableSearchButtonOnInput();
 
@@ -138,7 +138,6 @@ function initMainPage(username) {
   const cafesBtn = document.getElementById('cafesBtn');
   const sortOrderSelect = document.getElementById('sortOrder');
 
-  // Поиск
   searchBtn.addEventListener('click', async () => {
     const city = cityInput.value.trim();
     if (!city) return;
@@ -153,7 +152,6 @@ function initMainPage(username) {
     }
   });
 
-  // Кнопки меню
   async function onMenuClick(type) {
     if (currentSearchType === type) return;
     currentSearchType = type;
@@ -173,7 +171,6 @@ function initMainPage(username) {
   hotelsBtn.addEventListener('click', () => onMenuClick('hotels'));
   cafesBtn.addEventListener('click', () => onMenuClick('cafes'));
 
-  // Сортировка
   sortOrderSelect.addEventListener('change', () => {
     if (!currentItems.length) return;
     const order = sortOrderSelect.value;
